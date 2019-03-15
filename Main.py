@@ -70,8 +70,7 @@ def on_message(message):
         params = ""
 
     print(user + " (" + server_msg + ") [" + chan_msg + "] : " + rep)
-    if user != 'shobot#5794':
-        yield from client.send_message(message.channel, getDialog(text, user))
+
     if ranks and not pm and user != user_bot_client:
         open("msgs_user_" + server_msg + ".txt", "a").close()
         msgs = open("msgs_user_" + server_msg + ".txt", "r")
@@ -91,6 +90,10 @@ def on_message(message):
             msgs.write(msgs_r)
 
     # Début des commandes
+    if command[0] == '$':
+        if user != 'shobot#5794':
+            yield from client.send_message(message.channel, getDialog(text[1:], user))
+
     if command == "!commandtest":  # Copiez ce code pour créer une commande
         yield from client.send_message(message.channel, "Texte à envoyer.")
 
